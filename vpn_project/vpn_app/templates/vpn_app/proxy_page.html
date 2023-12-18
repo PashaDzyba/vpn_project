@@ -1,0 +1,20 @@
+{% extends "vpn_app/base.html" %}
+
+{% block title %}Browse via VPN{% endblock %}
+
+{% block content %}
+<div class="proxy-form">
+    <h1>Browse Websites via VPN</h1>
+    <form action="{% url 'proxy_view' %}" method="get">
+        <input type="text" name="site_url" placeholder="Enter website URL" required>
+        <button type="submit" class="btn btn-primary">Go</button>
+    </form>
+    {% if error_message %}
+        <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+</div>
+
+<div class="website-display">
+    {{ website_content|safe }}
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "vpn_app/base.html" %}
+
+{% block title %}Connection Logs - My VPN Service{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>User Connection Logs</h2>
+        <table class="table connection-logs">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Server</th>
+                    <th>Timestamp</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in page_obj %}
+                    <tr>
+                        <td>{{ log.user.username }}</td>
+                        <td>{{ log.vpn_server.name }}</td>
+                        <td class="log-timestamp">{{ log.timestamp }}</td>
+                        <td>{{ log.duration }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination links -->
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+{% endblock %}

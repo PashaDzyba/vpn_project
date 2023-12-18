@@ -1,0 +1,14 @@
+{% extends "vpn_app/base.html" %}
+
+{% block title %}Add Connection Log - My VPN Service{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Add Connection Log</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Log</button>
+    </form>
+</div>
+{% endblock %}

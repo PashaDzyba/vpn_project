@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My VPN Service{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <!-- Use Bootstrap's navbar classes to style your navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">VPN Service</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        {% if user.is_authenticated %}
+                            <!-- Dropdown for Servers -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownServers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Servers
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownServers">
+                                    <a class="dropdown-item" href="{% url 'server_list' %}">Server List</a>
+                                    <a class="dropdown-item" href="{% url 'add_vpn_server' %}">Create Server</a>
+                                    {% for server in servers %}
+                                        <a class="dropdown-item" href="{% url 'edit_vpn_server' server.pk %}">Edit {{ server.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <!-- Dropdown for Connection Logs -->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLogs" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Connection Logs
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownLogs">
+                                    <a class="dropdown-item" href="{% url 'connection_logs' %}">View Logs</a>
+                                    <a class="dropdown-item" href="{% url 'add_connection_log' %}">Add Log</a>
+                                    {% for log in connection_logs %}
+                                        <a class="dropdown-item" href="{% url 'edit_connection_log' log.pk %}">Edit Log {{ log.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'proxy_view' %}">Proxy Page</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'view_profile' %}">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'statistics' %}">Statistics</a></li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <span class="navbar-text">
+                                    Welcome, {{ user.username }}!
+                                </span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container">
+        {% block content %}
+        <!-- The main content will be inserted here -->
+        {% endblock %}
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">© {% now "Y" %} My VPN Service. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.9/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% block scripts %}
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* Reset some basic elements */
+html, body, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling for the navbar */
+.navbar {
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar a {
+    display: block;
+    color: #000000;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+.navbar-text {
+    display: block;
+    padding: 1rem 1rem;
+}
+
+.navbar a:hover {
+    background-color: #dddddd;
+    color: #000000;
+}
+
+/* Brand name styling */
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Navigation links styling */
+.navbar-nav li {
+    display: inline-block;
+}
+
+/* Currently active menu item */
+.navbar-nav .active {
+    background-color: transparent;
+    color: #ffffff;
+}
+
+/* Container within nav for better alignment */
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+/* Footer styling */
+.footer {
+    background-color: #333333;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Profile picture styling */
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Profile header layout */
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Profile header title and details */
+.profile-title {
+    font-size: 1.5em;
+}

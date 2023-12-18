@@ -1,0 +1,14 @@
+{% extends 'vpn_app/base.html' %}
+
+{% block content %}
+<h2>Statistics</h2>
+<div class="statistics-list">
+    {% for stat in user_stats %}
+    <div>
+        <p>Site: {{ stat.site_visited }} | Visits: {{ stat.id__count }} | Data Transferred: {{ stat.data_transferred__sum }} bytes</p>
+    </div>
+{% empty %}
+    <p>No statistics to show.</p>
+{% endfor %}
+</div>
+{% endblock %}
